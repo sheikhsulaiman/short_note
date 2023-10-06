@@ -29,10 +29,16 @@ class _NotesListState extends ConsumerState<NotesList> {
         child: Text("No notes found!"),
       );
     }
-    return ListView.separated(
-      separatorBuilder: (context, index) => const SizedBox(
-        height: 10,
-      ),
+    return GridView.builder(
+      primary: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          mainAxisExtent: 100),
+      // separatorBuilder: (context, index) => const SizedBox(
+      //   height: 10,
+      // ),
       padding: const EdgeInsets.all(10),
       itemCount: widget.notes.length,
       itemBuilder: (context, index) {
@@ -49,34 +55,61 @@ class _NotesListState extends ConsumerState<NotesList> {
               color: Colors.white,
             ),
           ),
-          child: ListTile(
-            textColor: Theme.of(context).colorScheme.onPrimaryContainer,
-            shape: RoundedRectangleBorder(
-              // side: const BorderSide(
-              //   color: Color.fromARGB(255, 190, 115, 255),
-              //   width: 1,
-              // ),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            selectedTileColor: Theme.of(context).colorScheme.primaryContainer,
-            tileColor:
-                Theme.of(context).colorScheme.primaryContainer.withOpacity(.7),
-            title: Text(widget.notes[index].title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            dense: true,
-            contentPadding: const EdgeInsets.only(left: 15),
-            trailing: IconButton(
-              color: Theme.of(context).colorScheme.error.withOpacity(.8),
-              icon: const Icon(Icons.delete_forever),
-              onPressed: () => _removeNote(index, widget.notes[index].id),
-            ),
+          child: GestureDetector(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) =>
                     NoteDetailsScreen(note: widget.notes[index]),
               ));
             },
+            child: Container(
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                    boxShadow: const [
+                      BoxShadow(
+                          blurRadius: 5,
+                          color: Color.fromARGB(255, 219, 219, 219),
+                          blurStyle: BlurStyle.normal,
+                          offset: Offset(5, 5))
+                    ],
+                    borderRadius: BorderRadius.circular(5),
+                    color: Theme.of(context).colorScheme.primaryContainer),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primaryContainer
+                              .withBlue(50)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 7),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          widget.notes[index].title,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.notes[index].description,
+                          style: const TextStyle(overflow: TextOverflow.fade),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
           ),
         );
       },

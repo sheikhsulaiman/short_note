@@ -24,7 +24,15 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Short Notes"),
+          elevation: 5,
+          shadowColor: Color.fromARGB(255, 250, 224, 77),
+          title: Text(
+            "Short Notes",
+            style: TextStyle(
+                letterSpacing: 1,
+                fontWeight: FontWeight.w900,
+                color: Theme.of(context).colorScheme.onPrimaryContainer),
+          ),
           backgroundColor: Theme.of(context).colorScheme.inversePrimary),
       body: NotesList(notes: notes),
       floatingActionButton: FloatingActionButton(
