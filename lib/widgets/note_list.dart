@@ -35,7 +35,7 @@ class _NotesListState extends ConsumerState<NotesList> {
           crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          mainAxisExtent: 100),
+          mainAxisExtent: 150),
       // separatorBuilder: (context, index) => const SizedBox(
       //   height: 10,
       // ),
@@ -87,15 +87,32 @@ class _NotesListState extends ConsumerState<NotesList> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 7),
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          widget.notes[index].title,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer),
+                        child: Expanded(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  textAlign: TextAlign.center,
+                                  widget.notes[index].title.toUpperCase(),
+                                  style: TextStyle(
+                                      overflow: TextOverflow.fade,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onPrimaryContainer),
+                                ),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    _removeNote(index, widget.notes[index].id);
+                                  },
+                                  icon: Icon(
+                                    Icons.delete_forever,
+                                    color: Colors.red,
+                                  ))
+                            ],
+                          ),
                         ),
                       ),
                     ),
