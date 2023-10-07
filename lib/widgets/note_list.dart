@@ -87,32 +87,30 @@ class _NotesListState extends ConsumerState<NotesList> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 7),
-                        child: Expanded(
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  textAlign: TextAlign.center,
-                                  widget.notes[index].title.toUpperCase(),
-                                  style: TextStyle(
-                                      overflow: TextOverflow.fade,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimaryContainer),
-                                ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                textAlign: TextAlign.center,
+                                widget.notes[index].title.toUpperCase(),
+                                style: TextStyle(
+                                    overflow: TextOverflow.fade,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer),
                               ),
-                              IconButton(
-                                  onPressed: () {
-                                    _removeNote(index, widget.notes[index].id);
-                                  },
-                                  icon: Icon(
-                                    Icons.delete_forever,
-                                    color: Colors.red,
-                                  ))
-                            ],
-                          ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  _removeNote(index, widget.notes[index].id);
+                                },
+                                icon: Icon(
+                                  Icons.delete_forever,
+                                  color: Colors.red,
+                                ))
+                          ],
                         ),
                       ),
                     ),
