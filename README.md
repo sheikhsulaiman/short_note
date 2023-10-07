@@ -1,16 +1,21 @@
-# short_note
+# short_note <img src="assets/logo.png" width=20 />
 
-A new Flutter project.
+A simple note taking app.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+Take notes, save it, modify it, delete it all are possible.
 
-A few resources to get you started if this is your first Flutter project:
+Each note is consist of
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Title
+- Description
+- Todos list
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Technology used
+
+- Flutter
+- Riverpod
+- Sqflite database
+
+[Download Apk](final\app-release.apk)
