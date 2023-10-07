@@ -18,4 +18,4 @@ Each note is consist of
 - Riverpod
 - Sqflite database
 
-[Download Apk](final/app-release.apk)
+[Download Apk](https://github.com/sheikhsulaiman/short_note/releases/latest)
