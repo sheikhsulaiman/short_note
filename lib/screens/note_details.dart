@@ -149,6 +149,8 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.note.title),
+        backgroundColor:
+            Theme.of(context).colorScheme.primaryContainer.withBlue(50),
         actions: [
           IconButton(
             onPressed: () {
@@ -161,15 +163,22 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
       ),
       body: Column(
         children: [
-          Card(
+          Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  boxShadow: [
+                    BoxShadow(
+                        offset: Offset(0, 5),
+                        blurRadius: 5,
+                        blurStyle: BlurStyle.normal,
+                        color: Color.fromARGB(255, 219, 219, 219)),
+                  ]),
               margin: const EdgeInsets.all(8),
-              color: Theme.of(context).colorScheme.primaryContainer,
               child: SizedBox(
                 width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 18,
                         color:
@@ -180,6 +189,14 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
               )),
           const SizedBox(
             height: 20,
+          ),
+          SizedBox(
+            height: 20,
+            child: Text(
+              "Todos",
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary, fontSize: 18),
+            ),
           ),
           Expanded(
             child: ListView.builder(
@@ -205,26 +222,42 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
                         .watch(userNotesProvider.notifier)
                         .deleteTodo(widget.note.todos[index].todoId);
                   },
-                  child: CheckboxListTile(
-                      onChanged: (bool? value) {
-                        setState(() {
-                          widget.note.todos[index].status = value!;
-                          ref
-                              .watch(userNotesProvider.notifier)
-                              .updateTodo(widget.note.todos[index]);
-                        });
-                      },
-                      value: widget.note.todos[index].status,
-                      title: Text(
-                        widget.note.todos[index].data,
-                        style: TextStyle(
-                            decoration: widget.note.todos[index].status
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none,
-                            color: widget.note.todos[index].status
-                                ? Colors.red[400]
-                                : Colors.black),
-                      )),
+                  child: Container(
+                    margin: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      boxShadow: const [
+                        BoxShadow(
+                            offset: Offset(0, 5),
+                            blurRadius: 5,
+                            blurStyle: BlurStyle.normal,
+                            color: Color.fromARGB(255, 219, 219, 219)),
+                      ],
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
+                    child: CheckboxListTile(
+                        onChanged: (bool? value) {
+                          setState(() {
+                            widget.note.todos[index].status = value!;
+                            ref
+                                .watch(userNotesProvider.notifier)
+                                .updateTodo(widget.note.todos[index]);
+                          });
+                        },
+                        value: widget.note.todos[index].status,
+                        title: Text(
+                          widget.note.todos[index].data,
+                          style: TextStyle(
+                              decoration: widget.note.todos[index].status
+                                  ? TextDecoration.lineThrough
+                                  : TextDecoration.none,
+                              color: widget.note.todos[index].status
+                                  ? Colors.red[400]
+                                  : Colors.black),
+                        )),
+                  ),
                 ),
               ),
             ),
@@ -252,15 +285,6 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
           ),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     Navigator.of(context).push(MaterialPageRoute(
-      //       builder: (context) => EditNoteScreen(note: widget.note),
-      //     ));
-      //   },
-      //   tooltip: 'New Note',
-      //   child: const Icon(Icons.edit),
-      // ),
     );
   }
 }
