@@ -47,6 +47,29 @@ class _AddNoteScreenState extends ConsumerState<AddNoteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 8.0,
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 10),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(
+                    Theme.of(context).colorScheme.inversePrimary),
+                padding: const MaterialStatePropertyAll(
+                  EdgeInsets.all(8.0),
+                ),
+              ),
+              onPressed: saveNote,
+              // () {
+              // Handle form submission here
+              // String title = titleController.text;
+              // String description = descriptionController.text;
+              // You can use the title and description as needed.
+              // },
+              child: const Text('Save'),
+            ),
+          ),
+        ],
         title: const Text('Create new note'),
       ),
       body: Padding(
@@ -107,36 +130,29 @@ class _AddNoteScreenState extends ConsumerState<AddNoteScreen> {
                       child: TextField(
                         controller: todoController,
                         decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 15.0),
+                          isDense: true,
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
                           hintText: 'Enter a new todo...',
                         ),
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.add),
+                      style: ButtonStyle(
+                          side: MaterialStatePropertyAll(BorderSide(
+                              width: 1.0,
+                              color: Theme.of(context).colorScheme.secondary))),
+                      icon: Icon(Icons.add,
+                          color: Theme.of(context).colorScheme.secondary),
                       onPressed: () {
                         addTodo();
                       },
                     ),
                   ],
                 ),
-              ),
-              ElevatedButton(
-                style: const ButtonStyle(
-                  padding: MaterialStatePropertyAll(
-                    EdgeInsets.all(10),
-                  ),
-                  minimumSize: MaterialStatePropertyAll(
-                    Size(double.infinity, double.minPositive),
-                  ),
-                ),
-                onPressed: saveNote,
-                // () {
-                // Handle form submission here
-                // String title = titleController.text;
-                // String description = descriptionController.text;
-                // You can use the title and description as needed.
-                // },
-                child: const Text('Save'),
               ),
             ],
           ),
