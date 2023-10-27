@@ -164,16 +164,26 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
       body: Column(
         children: [
           Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              margin: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              child: Text(
+                "Description",
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSecondaryContainer),
+              )),
+          Container(
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                         offset: Offset(0, 5),
                         blurRadius: 5,
                         blurStyle: BlurStyle.normal,
                         color: Color.fromARGB(255, 219, 219, 219)),
                   ]),
-              margin: const EdgeInsets.all(8),
+              margin: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
               child: SizedBox(
                 width: double.infinity,
                 child: Padding(
@@ -183,7 +193,9 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
                         fontSize: 18,
                         color:
                             Theme.of(context).colorScheme.onPrimaryContainer),
-                    widget.note.description,
+                    widget.note.description.trim().isEmpty
+                        ? "..."
+                        : widget.note.description,
                   ),
                 ),
               )),
@@ -223,7 +235,8 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
                         .deleteTodo(widget.note.todos[index].todoId);
                   },
                   child: Container(
-                    margin: const EdgeInsets.all(5),
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                     decoration: BoxDecoration(
                       boxShadow: const [
                         BoxShadow(
@@ -238,6 +251,9 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
                       ),
                     ),
                     child: CheckboxListTile(
+                        contentPadding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        checkboxShape: const CircleBorder(),
+                        dense: true,
                         onChanged: (bool? value) {
                           setState(() {
                             widget.note.todos[index].status = value!;
@@ -250,6 +266,7 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
                         title: Text(
                           widget.note.todos[index].data,
                           style: TextStyle(
+                              overflow: TextOverflow.visible,
                               decoration: widget.note.todos[index].status
                                   ? TextDecoration.lineThrough
                                   : TextDecoration.none,
@@ -270,12 +287,23 @@ class _NoteDetailsScreenState extends ConsumerState<NoteDetailsScreen> {
                   child: TextField(
                     controller: todoController,
                     decoration: const InputDecoration(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+                      isDense: true,
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(20.0))),
                       hintText: 'Enter a new todo...',
                     ),
                   ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.add),
+                  style: ButtonStyle(
+                      side: MaterialStatePropertyAll(BorderSide(
+                          width: 1.0,
+                          color: Theme.of(context).colorScheme.secondary))),
+                  icon: Icon(Icons.add,
+                      color: Theme.of(context).colorScheme.secondary),
                   onPressed: () {
                     addTodo();
                   },
