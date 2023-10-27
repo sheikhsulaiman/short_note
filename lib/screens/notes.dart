@@ -24,8 +24,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-          elevation: 5,
-          shadowColor: Color.fromARGB(255, 250, 224, 77),
+          shadowColor: const Color.fromARGB(255, 250, 224, 77),
           title: Text(
             "Short Notes",
             style: TextStyle(
